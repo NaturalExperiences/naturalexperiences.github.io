@@ -315,10 +315,12 @@
   }
   #film-player {
     width: 100%;
+    aspect-ratio: 16 / 9;
     height: auto;
     max-height: 78vh;
     display: block;
     background: #000;
+    border: 0;
   }
   .btn-ghost {
     font-size: 10px;

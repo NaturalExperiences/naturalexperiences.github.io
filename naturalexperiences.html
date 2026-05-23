@@ -58,7 +58,12 @@
       </div>
       <div class="reveal d1">
         <p class="intro-body">We have taken the restorative power of <em>nature</em> and made it into an efficient experience for the modern individual.</p>
-        <button type="button" class="btn" id="open-film-modal">Watch the film →</button>
+        <a
+          class="btn"
+          id="open-film-modal"
+          href="https://player.vimeo.com/video/1145625119?h=a353f29f53"
+          target="_blank"
+          rel="noopener noreferrer">Watch the film →</a>
       </div>
     </div>
   </div>
@@ -293,10 +298,17 @@
 <div class="film-modal" id="film-modal" aria-hidden="true">
   <div class="film-modal-dialog" role="dialog" aria-modal="true" aria-label="Natural Experiences film">
     <button type="button" class="film-modal-close" id="close-film-modal" aria-label="Close video">Close</button>
-    <video id="film-player" controls preload="metadata" playsinline>
-      <source src="img/commercial-film.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
+    <iframe
+      id="film-player"
+      title="vimeo-player"
+      src="about:blank"
+      width="640"
+      height="360"
+      frameborder="0"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+      allowfullscreen>
+    </iframe>
   </div>
 </div>
 
@@ -346,30 +358,21 @@
   const closeFilmModalBtn = document.getElementById('close-film-modal');
   const filmModal = document.getElementById('film-modal');
   const filmPlayer = document.getElementById('film-player');
-  const filmPlayDelayMs = 100;
-  let filmPlayTimeout = null;
+  const filmPlayerBaseSrc = 'https://player.vimeo.com/video/1145625119?h=a353f29f53';
 
-  function openFilmModal() {
+  function openFilmModal(e) {
+    if (e) e.preventDefault();
     filmModal.classList.add('open');
     filmModal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('no-scroll');
-    clearTimeout(filmPlayTimeout);
-    filmPlayTimeout = setTimeout(() => {
-      if (filmModal.classList.contains('open')) {
-        filmPlayer.play().catch(() => {});
-      }
-    }, filmPlayDelayMs);
+    filmPlayer.src = filmPlayerBaseSrc;
   }
 
   function closeFilmModal() {
     filmModal.classList.remove('open');
     filmModal.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('no-scroll');
-    clearTimeout(filmPlayTimeout);
-    filmPlayer.pause();
-    try {
-      filmPlayer.currentTime = 0;
-    } catch (_) {}
+    filmPlayer.src = 'about:blank';
   }
 
   openFilmModalBtn.addEventListener('click', openFilmModal);
