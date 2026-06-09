@@ -19,7 +19,6 @@
   <ul class="nav-links">
     <li><a href="#protocols">Our Mission</a></li>
     <li><a href="#personnel">The Team</a></li>
-    <li><a href="#feedback">Testimonials</a></li>
     <li><a href="#documentation">FAQ</a></li>
     <li><a href="mailto:hello@naturalexperienc.es" class="nav-cta">Contact →</a></li>
   </ul>
@@ -242,7 +241,7 @@
       <div class="footer-links">
         <div class="footer-col">
           <ul>
-            <li>Natural Experiences is a piece commissioned by the <a href="https://www.kunstenfestivalwatou.be/en/" target="_blank" rel="noopener noreferrer">Watou Arts Festival 2026</a></li>
+            <li>Natural Experiences is a piece commissioned by<br> <a href="https://www.kunstenfestivalwatou.be/en/" target="_blank" rel="noopener noreferrer">Watou Arts Festival 2026</a></li>
           </ul>
         </div>
       </div>
@@ -311,6 +310,28 @@
     btn.addEventListener('click', () => toggle(btn));
   });
 
+  // Testimonial slider
+  const testimonialTrack = document.querySelector('.testimonial-track');
+  const testimonialSlides = document.querySelectorAll('.testimonial-slide');
+  const testimonialCounter = document.getElementById('testimonial-counter');
+  let currentSlide = 0;
+  let autoSlideTimer;
+
+  function goToSlide(n) {
+    currentSlide = ((n % testimonialSlides.length) + testimonialSlides.length) % testimonialSlides.length;
+    testimonialTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+    testimonialCounter.textContent = `${currentSlide + 1} / ${testimonialSlides.length}`;
+  }
+
+  function startAutoSlide() {
+    clearInterval(autoSlideTimer);
+    autoSlideTimer = setInterval(() => goToSlide(currentSlide + 1), 5000);
+  }
+
+  document.getElementById('testimonial-prev').addEventListener('click', () => { goToSlide(currentSlide - 1); startAutoSlide(); });
+  document.getElementById('testimonial-next').addEventListener('click', () => { goToSlide(currentSlide + 1); startAutoSlide(); });
+  startAutoSlide();
+
   // Film modal
   const filmModal = document.getElementById('film-modal');
   const filmPlayer = document.getElementById('film-player');
@@ -331,22 +352,6 @@
     filmPlayer.src = 'about:blank';
   }
 
-  // Testimonial slider
-  const testimonialTrack = document.querySelector('.testimonial-track');
-  const testimonialSlides = document.querySelectorAll('.testimonial-slide');
-  const testimonialCounter = document.getElementById('testimonial-counter');
-  let currentSlide = 0;
-
-  function goToSlide(n) {
-    currentSlide = ((n % testimonialSlides.length) + testimonialSlides.length) % testimonialSlides.length;
-    testimonialTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
-    testimonialCounter.textContent = `${currentSlide + 1} / ${testimonialSlides.length}`;
-  }
-
-  document.getElementById('testimonial-prev').addEventListener('click', () => goToSlide(currentSlide - 1));
-  document.getElementById('testimonial-next').addEventListener('click', () => goToSlide(currentSlide + 1));
-
-  // Film modal
   document.getElementById('open-film-modal').addEventListener('click', openFilmModal);
   document.getElementById('close-film-modal').addEventListener('click', closeFilmModal);
   filmModal.addEventListener('click', e => { if (e.target === filmModal) closeFilmModal(); });

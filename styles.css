@@ -410,7 +410,10 @@
   .protocol-text strong { color: var(--green-deep); font-weight: 400; }
 
   /* ── FAQ / DOCUMENTATION ── */
-  #documentation { background: var(--green-deep); }
+  #documentation {
+    background: var(--green-deep);
+    border-top-color: color-mix(in srgb, var(--pure-white) 10%, transparent);
+  }
   #documentation .section-code { color: var(--line-dark); }
 
   .doc-content { padding: 0; }
@@ -448,13 +451,14 @@
     border: 1px solid var(--line);
     background: var(--off-white);
   }
-  .testimonial-track-wrapper { overflow: hidden; }
+  .testimonial-track-wrapper { overflow: hidden; width: 100%; }
   .testimonial-track {
     display: flex;
     transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
   }
   .testimonial-slide {
-    min-width: 100%;
+    flex: 0 0 100%;
+    width: 100%;
     padding: 40px 36px;
   }
   .feedback-entry-header {
