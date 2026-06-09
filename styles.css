@@ -320,29 +320,6 @@
     to { transform: translateX(-50%); }
   }
 
-  /* ── WELLNESS AUDIT (stats) ── */
-  .audit-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
-  .audit-cell {
-    padding: 40px 36px;
-    position: relative;
-  }
-  .audit-num {
-    font-family: var(--font-display);
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--green-accent);
-    margin-bottom: 14px;
-  }
-  .audit-desc { font-size: 11px; color: var(--text-muted); line-height: 1.75; }
-  .audit-bar {
-    position: absolute;
-    bottom: 0; left: 0;
-    height: 2px;
-    background: var(--green-accent);
-  }
-
   /* ── PERSONNEL ── */
   #personnel { background: var(--green-deep); }
   .personnel-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 10px; background: var(--green-deep); }
@@ -410,15 +387,9 @@
   .protocol-text strong { color: var(--green-deep); font-weight: 400; }
 
   /* ── FAQ / DOCUMENTATION ── */
-  #documentation {
-    background: var(--green-deep);
-    border-top-color: color-mix(in srgb, var(--pure-white) 10%, transparent);
-  }
-  #documentation .section-code { color: var(--line-dark); }
-
   .doc-content { padding: 0; }
 
-  .faq-item { border-bottom: 1px solid color-mix(in srgb, var(--pure-white) 10%, transparent); }
+  .faq-item { border-bottom: 1px solid var(--line); }
   .faq-q {
     width: 100%; background: none; border: none; cursor: pointer;
     display: flex;
@@ -430,11 +401,11 @@
     border-left: 3px solid transparent;
     transition: border-color 0.2s, background 0.15s;
   }
-  .faq-q:hover { background: color-mix(in srgb, var(--pure-white) 5%, transparent); }
-  .faq-item.open .faq-q { background: color-mix(in srgb, var(--pure-white) 5%, transparent); }
+  .faq-q:hover { background: var(--green-xlight); }
+  .faq-item.open .faq-q { background: var(--green-xlight); }
   .faq-num { display: none; }
-  .faq-q-text { font-family: var(--font-display); font-size: 13px; font-weight: 600; color: var(--white); }
-  .faq-icon { font-size: 16px; color: var(--line-dark); transition: transform 0.3s, color 0.2s; font-weight: 300; text-align: right; }
+  .faq-q-text { font-family: var(--font-display); font-size: 13px; font-weight: 600; color: var(--green-deep); }
+  .faq-icon { font-size: 16px; color: var(--text-dim); transition: transform 0.3s, color 0.2s; font-weight: 300; text-align: right; }
   .faq-item.open .faq-icon { transform: rotate(45deg); color: var(--green-accent); }
 
   .faq-body { max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.16,1,0.3,1); }
@@ -443,8 +414,16 @@
     padding: 10px 28px 32px 28px;
     display: flex; flex-direction: column; gap: 14px;
   }
-  .faq-body-inner p { font-size: 12px; color: var(--line-dark); line-height: 1.95; }
-  .faq-body-inner strong { color: var(--white); font-weight: 400; }
+  .faq-body-inner p { font-size: 12px; color: var(--text-muted); line-height: 1.95; }
+  .faq-body-inner strong { color: var(--green-deep); font-weight: 400; }
+
+  /* ── VISUAL PLACEHOLDER ── */
+  .visual-placeholder {
+    background: var(--green-deep);
+    height: 480px;
+    padding: 0;
+    border-top: none;
+  }
 
   /* ── TESTIMONIALS ── */
   .feedback-form {
@@ -545,10 +524,8 @@
     .wrap { padding: 0 20px; }
     section { padding: 52px 0; }
     .intro-grid, .protocols-grid { grid-template-columns: 1fr; }
-    .audit-grid { grid-template-columns: 1fr; }
-    .audit-cell { border-right: none; border-bottom: 1px solid var(--line); }
-    .audit-cell:last-child { border-bottom: none; }
     .personnel-grid { grid-template-columns: 1fr 1fr; }
+    .visual-placeholder { height: 280px; }
     .faq-body-inner { padding-left: 28px; }
     .footer-top { flex-direction: column; }
     .footer-bottom { flex-direction: column; text-align: center; }
