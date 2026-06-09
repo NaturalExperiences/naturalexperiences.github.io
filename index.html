@@ -306,7 +306,7 @@
 
   function startAutoSlide() {
     clearInterval(autoSlideTimer);
-    autoSlideTimer = setInterval(() => goToSlide(currentSlide + 1), 5000);
+    autoSlideTimer = setInterval(() => goToSlide(currentSlide + 1), 15000);
   }
 
   document.getElementById('testimonial-prev').addEventListener('click', () => { goToSlide(currentSlide - 1); startAutoSlide(); });
