@@ -1,0 +1,9 @@
+# Testimonials — one block per testimonial, separated by a line containing only "---"
+# In each block: the quote first, then a final line with "Name | Company"
+# The quote may span multiple lines. Add as many blocks as you like.
+
+I just arrived in Nature, I will feel the right kind of energy here to Testify.
+Frans Harelbeke | NatuReal
+---
+What?
+Michalis Bogeas | Telenor

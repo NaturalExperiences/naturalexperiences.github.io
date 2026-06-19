@@ -62,7 +62,7 @@
         <div class="protocol reveal d1">
           <div class="protocol-code"><span>04 — Ubiquity</span></div>
           <h3 class="protocol-title">Available worldwide on demand.</h3>
-          <p class="protocol-text">We believe our emulator is <strong>of value to anyone</strong> living in the modern world. <strong>Contact us for inquiries.</strong> We are serious about this.</p>
+          <p class="protocol-text">We believe our emulator is <strong>of value to anyone</strong> living in the modern world. <strong>Contact us for inquiries.</strong> Our product works on both a B2B and B2C basis. We are serious about this.</p>
         </div>
       </div>
     </div>
@@ -147,22 +147,8 @@
     <div class="wrap">
       <div class="feedback-form reveal">
         <div class="testimonial-track-wrapper">
-          <div class="testimonial-track">
-            <div class="testimonial-slide">
-              <p class="feedback-quote">…</p>
-              <div class="feedback-entry-header">
-                <span>Frans Harelbeke</span>
-                <span>NatuReal</span>
-              </div>
-            </div>
-            <div class="testimonial-slide">
-              <p class="feedback-quote">What?</p>
-              <div class="feedback-entry-header">
-                <span>Michalis Bogeas</span>
-                <span>Telenor</span>
-              </div>
-            </div>
-          </div>
+          <!-- Slides injected from testimonials.txt -->
+          <div class="testimonial-track"></div>
         </div>
         <div class="testimonial-nav">
           <button class="testimonial-btn" id="testimonial-prev" aria-label="Previous testimonial">←</button>
@@ -204,7 +190,7 @@
       <div class="footer-links">
         <div class="footer-col">
           <ul>
-            <li>Natural Experiences is a piece commissioned by<br> <a href="https://www.kunstenfestivalwatou.be/en/" target="_blank" rel="noopener noreferrer">Watou Arts Festival 2026</a> <br> Find us at Kasteel de Lovie.</li>
+            <li>Natural Experiences is an art installation <br> commissioned by the <a href="https://www.kunstenfestivalwatou.be/en/" target="_blank" rel="noopener noreferrer">Watou Arts Festival 2026</a>.<br> Find us at Kasteel de Lovie.</li>
           </ul>
         </div>
       </div>
@@ -274,13 +260,16 @@
   });
 
   // Testimonial slider
+  // Slides are loaded from testimonials.txt — blocks separated by a line of "---",
+  // quote first, then a final "Name | Company" attribution line.
   const testimonialTrack = document.querySelector('.testimonial-track');
-  const testimonialSlides = document.querySelectorAll('.testimonial-slide');
   const testimonialCounter = document.getElementById('testimonial-counter');
+  let testimonialSlides = [];
   let currentSlide = 0;
   let autoSlideTimer;
 
   function goToSlide(n) {
+    if (!testimonialSlides.length) return;
     currentSlide = ((n % testimonialSlides.length) + testimonialSlides.length) % testimonialSlides.length;
     testimonialTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
     testimonialCounter.textContent = `${currentSlide + 1} / ${testimonialSlides.length}`;
@@ -288,12 +277,65 @@
 
   function startAutoSlide() {
     clearInterval(autoSlideTimer);
-    autoSlideTimer = setInterval(() => goToSlide(currentSlide + 1), 15000);
+    if (testimonialSlides.length > 1) {
+      autoSlideTimer = setInterval(() => goToSlide(currentSlide + 1), 15000);
+    }
   }
+
+  const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  function buildTestimonials(text) {
+    const blocks = text
+      .split(/\n---\n/)
+      .map(b => b.split('\n').filter(l => !l.trim().startsWith('#')).join('\n').trim())
+      .filter(Boolean);
+    testimonialTrack.innerHTML = blocks.map((block) => {
+      const lines = block.split('\n').map(l => l.trim()).filter(Boolean);
+      const attribution = lines.pop() || '';
+      const quote = lines.join(' ');
+      const [name = '', company = ''] = attribution.split('|').map(s => s.trim());
+      return `
+        <div class="testimonial-slide">
+          <p class="feedback-quote"><span class="feedback-quote-text">${esc(quote)}</span></p>
+          <div class="feedback-entry-header">
+            <span>${esc(name)}</span>${company ? `<span>${esc(company)}</span>` : ''}
+          </div>
+        </div>`;
+    }).join('');
+    testimonialSlides = testimonialTrack.querySelectorAll('.testimonial-slide');
+    goToSlide(0);
+    fitQuotes();
+    startAutoSlide();
+  }
+
+  fetch('testimonials.txt')
+    .then(r => { if (!r.ok) throw new Error(`${r.status} ${r.statusText}`); return r.text(); })
+    .then(buildTestimonials)
+    .catch(err => console.error('Testimonials failed to load — if viewing locally, run: python3 -m http.server 8080\n', err));
 
   document.getElementById('testimonial-prev').addEventListener('click', () => { goToSlide(currentSlide - 1); startAutoSlide(); });
   document.getElementById('testimonial-next').addEventListener('click', () => { goToSlide(currentSlide + 1); startAutoSlide(); });
-  startAutoSlide();
+
+  // Auto-fit testimonial text: shrink font until it fits the fixed box (capped at CSS max).
+  const MIN_QUOTE_FONT = 12;
+  function fitQuotes() {
+    document.querySelectorAll('.feedback-quote').forEach((quote) => {
+      const text = quote.querySelector('.feedback-quote-text');
+      if (!text) return;
+      quote.style.fontSize = '';                              // revert to CSS max
+      let size = parseFloat(getComputedStyle(quote).fontSize);
+      while (size > MIN_QUOTE_FONT && text.scrollHeight > text.clientHeight) {
+        size -= 1;
+        quote.style.fontSize = size + 'px';
+      }
+    });
+  }
+  let fitRaf;
+  window.addEventListener('resize', () => {
+    cancelAnimationFrame(fitRaf);
+    fitRaf = requestAnimationFrame(fitQuotes);
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitQuotes);
 
   // Film modal
   const filmModal = document.getElementById('film-modal');
