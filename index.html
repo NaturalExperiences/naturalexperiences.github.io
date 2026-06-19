@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Natural Experiences</title>
+  <link rel="icon" type="image/svg+xml" href="img/brand/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
@@ -13,12 +14,14 @@
 
 <nav aria-label="Main navigation">
   <a class="nav-logo" href="#">
-    <span class="logo-natural">natural</span>
-    <span class="logo-experiences">experiences</span>
+    <img class="brand-mark" src="img/brand/symbol.svg" alt="" aria-hidden="true">
+    <span class="nav-logo-text">
+      <span class="logo-natural">natural</span>
+      <span class="logo-experiences">experiences</span>
+    </span>
   </a>
   <ul class="nav-links">
     <li><a href="#protocols">Our Mission</a></li>
-    <li><a href="#personnel">The Team</a></li>
     <li><a href="#documentation">FAQ</a></li>
     <li><a href="#feedback">Testimonials</a></li>
     <li><a href="mailto:hello@naturalexperienc.es" class="nav-cta">Contact →</a></li>
@@ -26,59 +29,20 @@
 </nav>
 
 <!-- HERO -->
-<!-- Swap <img> for <video autoplay muted loop playsinline preload="auto"><source src="hero-bg.mp4" type="video/mp4"></video> when the .mp4 is ready -->
+<!-- Swap the .hero-media <img> for <video class="hero-media" autoplay muted loop playsinline preload="auto"><source src="img/hero-bg.mp4" type="video/mp4"></video> when the .mp4 is ready -->
 <div class="hero">
-  <img class="hero-video" src="img/hero-bg.jpg" alt="">
+  <img class="hero-media" src="img/hero-bg.jpeg" alt="A natural landscape">
   <div class="hero-center">
-    <div class="hero-frame">
-      <div class="hero-frame-label">Emulator</div>
-      <h1 class="hero-tagline">Experience nature,<br><em>without the mess.</em></h1>
-      <div class="hero-frame-status"><span class="hero-frame-dot"></span> Active</div>
-    </div>
+    <h1 class="hero-tagline">Make the forest<br> fit your <em>actual life</em>.</h1> 
+    <a class="btn" id="open-film-modal" href="https://player.vimeo.com/video/1145625119?h=a353f29f53" target="_blank" rel="noopener noreferrer">Learn more</a>
   </div>
 </div>
 
 <main>
 
-  <!-- INTRO -->
-  <section aria-label="Introduction">
-    <div class="wrap">
-      <div class="intro-grid">
-        <div>
-          <h2 class="intro-headline reveal">Make the forest fit your actual life.</h2>
-        </div>
-        <div class="reveal d1">
-          <p class="intro-body">We have taken the restorative power of <em>nature</em> and made it into an efficient experience for the modern individual.</p>
-          <a class="btn" id="open-film-modal" href="https://player.vimeo.com/video/1145625119?h=a353f29f53" target="_blank" rel="noopener noreferrer">Watch the film →</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- MARQUEE STRIP -->
-  <div class="marquee-strip" aria-hidden="true">
-    <div class="marquee-inner">
-      <div class="marquee-item"><span>·</span> You are a natural being in a natural world </div>
-      <div class="marquee-item"><span>·</span> Nature is a noun, progress is a verb </div>
-      <div class="marquee-item"><span>·</span> Tap into your primal self </div>
-      <div class="marquee-item"><span>·</span> You, in your rightful place </div>
-      <div class="marquee-item"><span>·</span> Let the comforting blanket of nature tuck you in. </div>
-      <div class="marquee-item"><span>·</span> Explore your insides by letting in the outside </div>
-      <div class="marquee-item"><span>·</span> Are you ready to get natured? </div>
-      <div class="marquee-item"><span>·</span> You are a natural being in a natural world </div>
-      <div class="marquee-item"><span>·</span> Nature is a noun, progress is a verb </div>
-      <div class="marquee-item"><span>·</span> Tap into your primal self </div>
-      <div class="marquee-item"><span>·</span> You, in your rightful place </div>
-      <div class="marquee-item"><span>·</span> Let the comforting blanket of nature tuck you in. </div>
-      <div class="marquee-item"><span>·</span> Explore your insides by letting in the outside </div>
-      <div class="marquee-item"><span>·</span> Are you ready to get natured? </div>
-    </div>
-  </div>
-
   <!-- OUR MISSION -->
   <section id="protocols" aria-label="Our Mission">
     <div class="wrap">
-      <span class="section-code">Our Mission</span>
       <div class="protocols-grid">
         <div class="protocol reveal">
           <div class="protocol-code"><span>01 — Authenticity</span></div>
@@ -93,7 +57,7 @@
         <div class="protocol reveal d2">
           <div class="protocol-code"><span>03 — Humanity</span></div>
           <h3 class="protocol-title">With a human-centered approach.</h3>
-          <p class="protocol-text">We aim to create a natural experience that for the first time is truly <strong>designed for the human user</strong>. No more going out into the forest like a caveman. Finally, nature made fit for the modern age.</p>
+          <p class="protocol-text">We aim to create a new nature that for the first time is truly <strong>designed for the human user</strong>. No more going out into the forest like a caveman. Finally, nature made fit for the modern age.</p>
         </div>
         <div class="protocol reveal d1">
           <div class="protocol-code"><span>04 — Ubiquity</span></div>
@@ -103,6 +67,39 @@
       </div>
     </div>
   </section>
+
+
+  <!-- VISUAL SECTION — brand transformation -->
+  <div class="brand-interstitial" aria-label="Natural Experiences: experience nature, without the mess — the outside, but inside">
+    <figure class="transform-step">
+      <img class="transform-mark" src="img/brand/logo_transformation_1.svg" alt="">
+      <figcaption>Experience<br>nature.</figcaption>
+    </figure>
+    <svg class="transform-arrow" viewBox="0 0 90 16" fill="none" stroke="currentColor" aria-hidden="true">
+      <line x1="0" y1="8" x2="82" y2="8" stroke-width="1.5"/>
+      <polyline points="74,2.5 84,8 74,13.5" stroke-width="1.5"/>
+    </svg>
+    <figure class="transform-step">
+      <img class="transform-mark" src="img/brand/logo_transformation_2.svg" alt="">
+      <figcaption>Without<br>the mess.</figcaption>
+    </figure>
+    <svg class="transform-arrow" viewBox="0 0 90 16" fill="none" stroke="currentColor" aria-hidden="true">
+      <line x1="0" y1="8" x2="82" y2="8" stroke-width="1.5"/>
+      <polyline points="74,2.5 84,8 74,13.5" stroke-width="1.5"/>
+    </svg>
+    <figure class="transform-step">
+      <img class="transform-mark" src="img/brand/symbol.svg" alt="">
+      <figcaption>The outside.<br>But inside.</figcaption>
+    </figure>
+  </div>
+
+  <!-- FAQ -->
+  <section id="documentation" aria-label="FAQ">
+    <div class="wrap">
+      <div class="doc-content"></div>
+    </div>
+  </section>
+
 
   <!-- THE TEAM -->
   <section id="personnel" aria-label="The Team">
@@ -145,43 +142,25 @@
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section id="documentation" aria-label="FAQ">
-    <div class="wrap">
-      <div class="section-header">
-        <span class="section-code">FAQ</span>
-      </div>
-      <div class="doc-content"></div>
-    </div>
-  </section>
-
-  <!-- VISUAL SECTION — replace with image/video/etc. when ready -->
-  <div class="visual-placeholder"></div>
-
   <!-- TESTIMONIALS -->
   <section id="feedback" aria-label="Testimonials">
     <div class="wrap">
-      <div class="section-header">
-        <span class="section-code">Testimonials</span>
-      </div>
       <div class="feedback-form reveal">
         <div class="testimonial-track-wrapper">
           <div class="testimonial-track">
             <div class="testimonial-slide">
+              <p class="feedback-quote">…</p>
               <div class="feedback-entry-header">
                 <span>Frans Harelbeke</span>
                 <span>NatuReal</span>
               </div>
-              <p class="feedback-quote">…</p>
-              <div class="feedback-line"></div>
             </div>
             <div class="testimonial-slide">
+              <p class="feedback-quote">What?</p>
               <div class="feedback-entry-header">
                 <span>Michalis Bogeas</span>
                 <span>Telenor</span>
               </div>
-              <p class="feedback-quote">What?</p>
-              <div class="feedback-line"></div>
             </div>
           </div>
         </div>
@@ -216,8 +195,11 @@
   <div class="wrap">
     <div class="footer-top">
       <div class="footer-logo">
-        <span class="logo-natural">natural</span>
-        <span class="logo-experiences">experiences</span>
+        <img class="brand-mark footer-mark" src="img/brand/symbol.svg" alt="" aria-hidden="true">
+        <span class="footer-logo-text">
+          <span class="logo-natural">natural</span>
+          <span class="logo-experiences">experiences</span>
+        </span>
       </div>
       <div class="footer-links">
         <div class="footer-col">
