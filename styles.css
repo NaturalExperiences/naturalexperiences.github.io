@@ -30,7 +30,7 @@
     background: var(--white);
     color: var(--green-deep);
     font-family: var(--font-mono);
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 300;
     line-height: 1.7;
     overflow-x: hidden;
@@ -377,7 +377,7 @@
     line-height: 1.2;
     margin-bottom: 16px;
   }
-  .protocol-text { font-size: 14px; color: var(--text-muted); line-height: 1.85; }
+  .protocol-text { font-size: 13px; color: var(--text-muted); line-height: 1.85; }
   .protocol-text strong { color: var(--green-deep); font-weight: 400; }
 
   /* ── FAQ / DOCUMENTATION ── */
@@ -408,7 +408,7 @@
     padding: 10px 28px 32px 28px;
     display: flex; flex-direction: column; gap: 14px;
   }
-  .faq-body-inner p { font-size: 14px; color: var(--text-muted); line-height: 1.95; }
+  .faq-body-inner p { font-size: 13px; color: var(--text-muted); line-height: 1.95; }
   .faq-body-inner strong { color: var(--green-deep); font-weight: 400; }
 
   /* ── VISUAL SECTION (brand transformation) ── */
