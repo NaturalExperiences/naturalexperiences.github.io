@@ -305,14 +305,35 @@
     position: absolute; bottom: 0; left: 0; right: 0;
     padding: 32px 14px 14px;
     background: linear-gradient(transparent, color-mix(in srgb, var(--overlay-dark) 82%, transparent));
+    opacity: 0;
+    transition: opacity 0.4s ease;
   }
+  .personnel-card:hover .personnel-overlay,
+  .personnel-card:focus-within .personnel-overlay { opacity: 1; }
   .personnel-name {
     font-family: var(--font-display);
     font-size: 13px;
     font-weight: 600;
     color: var(--pure-white);
     letter-spacing: 0.01em;
+    transform: translateY(8px);
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
   }
+  .personnel-card:hover .personnel-name,
+  .personnel-card:focus-within .personnel-name { transform: translateY(0); }
+  .personnel-role {
+    margin-top: 4px;
+    font-size: 10.5px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--pure-white) 72%, transparent);
+    transform: translateY(8px);
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1) 0.06s;
+  }
+  .personnel-card:hover .personnel-role,
+  .personnel-card:focus-within .personnel-role { transform: translateY(0); }
   .personnel-badge {
     position: absolute;
     top: 0; left: 0; right: 0;
@@ -571,5 +592,10 @@
     .marquee-inner { animation: none; }
     .logo-full,
     .reveal,
+    .personnel-overlay,
+    .personnel-name,
+    .personnel-role,
     .personnel-card img { transition: none; }
+    .personnel-name,
+    .personnel-role { transform: none; }
   }
