@@ -618,7 +618,7 @@
   .tf-status a { color: var(--green-mid); }
   .tf-success {
     max-width: 640px;
-    margin: 0 auto;
+    margin: 20px auto 0;
     font-style: italic;
     color: var(--text-muted);
   }
@@ -686,6 +686,15 @@
 
     .tf-row { flex-direction: column; }
     .tf-actions { flex-direction: column; align-items: flex-start; gap: 12px; }
+
+    /* Testimonials: narrow screens wrap more, so the box needs MORE height,
+       and the leaf decorations shrink to give the text room. */
+    .feedback-quote {
+      height: clamp(165px, 48vw, 220px);
+      gap: 12px;
+    }
+    .feedback-quote::before,
+    .feedback-quote::after { width: 24px; }
   }
 
   /* ── REDUCED MOTION ── */
