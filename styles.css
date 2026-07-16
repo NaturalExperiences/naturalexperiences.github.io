@@ -25,6 +25,8 @@
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
+  /* [hidden] must win over display rules like `#testimonial-form { display: flex }` */
+  [hidden] { display: none !important; }
 
   body {
     background: var(--white);
@@ -123,6 +125,12 @@
     z-index: 3;
   }
   .hero-center .btn { margin: 0; }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+  }
   .hero-tagline {
     font-family: var(--font-display);
     font-size: clamp(48px, 5vw, 80px);
@@ -173,7 +181,7 @@
     gap: 8px;
     background: var(--green-mid);
     color: var(--green-light);
-    padding: 13px 26px;
+    padding: 12px 25px;
     font-family: var(--font-mono);
     font-size: 13px;
     letter-spacing: 0.1em;
@@ -181,19 +189,50 @@
     text-decoration: none;
     /* leaf / drop shape — rounded with one pointed corner */
     border-radius: 22px 22px 22px 2px;
-    border: none;
+    border: 1px solid transparent;
     cursor: pointer;
-    transition: background 0.15s, border-radius 0.3s cubic-bezier(0.16,1,0.3,1);
+    transition: background 0.15s, border-color 0.15s, color 0.15s, border-radius 0.3s cubic-bezier(0.16,1,0.3,1);
     margin-right: 16px;
   }
   .btn:hover {
     background: var(--green-accent);
     border-radius: 2px 22px 22px 22px;
   }
+  .btn-icon { font-size: 9px; line-height: 1; }
+
+  /* Hero button pair — matte glass at rest (green-tinted vs white-tinted),
+     each fills with its own solid colour on hover. */
+  .hero-actions .btn {
+    padding: 15px 30px;
+    font-weight: 500;
+    color: var(--white);
+    backdrop-filter: blur(10px) saturate(1.3);
+    -webkit-backdrop-filter: blur(10px) saturate(1.3);
+    box-shadow: 0 8px 28px color-mix(in srgb, var(--overlay-dark) 30%, transparent);
+  }
+  .btn-bright {
+    background: color-mix(in srgb, var(--green-accent) 24%, transparent);
+    border-color: color-mix(in srgb, var(--green-accent) 65%, transparent);
+  }
+  .btn-light {
+    background: color-mix(in srgb, var(--white) 16%, transparent);
+    border-color: color-mix(in srgb, var(--white) 55%, transparent);
+  }
+  .btn-bright:hover {
+    background: var(--green-accent);
+    border-color: var(--green-accent);
+    color: var(--green-deep);
+  }
+  .btn-light:hover {
+    background: var(--white);
+    border-color: var(--white);
+    color: var(--green-deep);
+  }
 
   .no-scroll { overflow: hidden; }
 
-  .film-modal {
+  /* ── MODALS (shared) ── */
+  .modal {
     position: fixed;
     inset: 0;
     z-index: 300;
@@ -205,7 +244,11 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
   }
-  .film-modal.open { display: flex; }
+  .modal.open { display: flex; }
+  .modal.open > [role="dialog"] { animation: modal-in 0.4s cubic-bezier(0.16,1,0.3,1); }
+  @keyframes modal-in {
+    from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  }
   .film-modal-dialog {
     display: flex;
     flex-direction: column;
@@ -216,7 +259,7 @@
     padding: 16px;
     box-shadow: 0 24px 60px color-mix(in srgb, var(--black) 50%, transparent);
   }
-  .film-modal-close {
+  .modal-close {
     align-self: flex-end;
     display: inline-flex;
     align-items: center;
@@ -233,7 +276,7 @@
     border-radius: 16px 16px 16px 2px;
     transition: background 0.15s, border-radius 0.3s cubic-bezier(0.16,1,0.3,1);
   }
-  .film-modal-close:hover {
+  .modal-close:hover {
     background: var(--green-accent);
     color: var(--white);
     border-radius: 2px 16px 16px 16px;
@@ -525,31 +568,32 @@
   }
 
   /* ── TESTIMONIAL SUBMISSION ── */
-  .testimonial-submit {
-    text-align: center;
-    margin-top: 40px;
-    padding-top: 36px;
-    border-top: 1px solid var(--line);
+  .form-modal-dialog {
+    display: flex;
+    flex-direction: column;
+    width: min(640px, 100%);
+    max-height: 100%;
+    overflow-y: auto;
+    background: var(--white);
+    border: 1px solid var(--line);
+    /* leaf / drop shape — matches the buttons */
+    border-radius: 22px 22px 22px 2px;
+    padding: 20px 32px 36px;
+    box-shadow: 0 24px 60px color-mix(in srgb, var(--black) 50%, transparent);
   }
-  .testimonial-submit .btn { margin: 0; }
-  .testimonial-form-panel {
-    display: grid;
-    grid-template-rows: 0fr;
-    transition: grid-template-rows 0.5s cubic-bezier(0.16,1,0.3,1);
-  }
-  .testimonial-form-panel.open { grid-template-rows: 1fr; }
-  .testimonial-form-inner {
-    overflow: hidden;
-    min-height: 0;
+  .form-modal-title {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
   }
   #testimonial-form {
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 32px 8px 8px;
     display: flex;
     flex-direction: column;
     gap: 18px;
     text-align: left;
+    padding-top: 16px;
   }
   .tf-botcheck { display: none; }
   .tf-field { display: flex; flex-direction: column; gap: 7px; flex: 1; }
@@ -617,9 +661,10 @@
   .tf-status.error { color: var(--green-mid); }
   .tf-status a { color: var(--green-mid); }
   .tf-success {
-    max-width: 640px;
-    margin: 20px auto 0;
+    margin: 28px 0 20px;
+    text-align: center;
     font-style: italic;
+    font-size: 14px;
     color: var(--text-muted);
   }
 
@@ -680,8 +725,9 @@
     .footer-col ul { text-align: center; align-items: center; }
     .footer-bottom { flex-direction: column; align-items: center; text-align: center; }
 
-    .film-modal { padding: 12px; }
+    .modal { padding: 12px; }
     .film-modal-dialog { padding: 10px; }
+    .form-modal-dialog { padding: 16px 20px 28px; }
     #film-player { max-height: 70vh; }
 
     .tf-row { flex-direction: column; }
@@ -709,5 +755,5 @@
     .personnel-card img { transition: none; }
     .personnel-name,
     .personnel-role { transform: none; }
-    .testimonial-form-panel { transition: none; }
+    .modal.open > [role="dialog"] { animation: none; }
   }

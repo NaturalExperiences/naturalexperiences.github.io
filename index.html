@@ -30,7 +30,10 @@
   <img class="hero-media" src="img/hero-bg.jpg" alt="A natural landscape">
   <div class="hero-center">
     <h1 class="hero-tagline">Make the forest<br class="br-desktop"> fit your <em>actual life</em>.</h1>
-    <a class="btn" id="open-film-modal" href="https://player.vimeo.com/video/1145625119?h=a353f29f53" target="_blank" rel="noopener noreferrer">Learn more</a>
+    <div class="hero-actions">
+      <a class="btn btn-bright" id="open-film-modal" href="https://player.vimeo.com/video/1145625119?h=a353f29f53" target="_blank" rel="noopener noreferrer"><span class="btn-icon" aria-hidden="true"></span>Watch video</a>
+      <a class="btn btn-light" id="hero-testimonial-btn" href="#feedback">Submit a testimonial</a>
+    </div>
   </div>
 </div>
 
@@ -155,46 +158,6 @@
           <span class="testimonial-counter" id="testimonial-counter">1 / 2</span>
           <button class="testimonial-btn" id="testimonial-next" aria-label="Next testimonial">→</button>
         </div>
-
-        <!-- TESTIMONIAL SUBMISSION -->
-        <div class="testimonial-submit">
-          <button class="btn" type="button" id="testimonial-form-toggle" aria-expanded="false" aria-controls="testimonial-form-panel">Submit a testimonial</button>
-          <div class="testimonial-form-panel" id="testimonial-form-panel">
-            <div class="testimonial-form-inner">
-              <form id="testimonial-form" novalidate>
-                <!-- Honeypot — hidden from humans, bots fill it in -->
-                <input type="checkbox" name="botcheck" class="tf-botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
-                <label class="tf-field">
-                  <span class="tf-label">Testimonial</span>
-                  <textarea name="testimonial" rows="4" maxlength="280" required placeholder="How was your experience?"></textarea>
-                </label>
-                <div class="tf-row">
-                  <label class="tf-field">
-                    <span class="tf-label">Name</span>
-                    <input type="text" name="name" maxlength="80" required>
-                  </label>
-                  <label class="tf-field">
-                    <span class="tf-label">Company / title <em>(optional)</em></span>
-                    <input type="text" name="company" maxlength="80" autocomplete="organization">
-                  </label>
-                </div>
-                <label class="tf-field">
-                  <span class="tf-label">Email</span>
-                  <input type="email" name="email" maxlength="120" required autocomplete="email">
-                </label>
-                <label class="tf-consent">
-                  <input type="checkbox" name="newsletter" value="yes" checked>
-                  <span>Keep me updated on Natural Experiences and its sister companies</span>
-                </label>
-                <div class="tf-actions">
-                  <button class="btn" type="submit" id="testimonial-submit-btn">Submit</button>
-                  <p class="tf-status" id="testimonial-form-status" role="status" aria-live="polite"></p>
-                </div>
-              </form>
-            </div>
-          </div>
-          <p class="tf-success" id="testimonial-form-success" hidden>Thank you. Your testimonial has been received.</p>
-        </div>
       </div>
     </div>
   </section>
@@ -202,9 +165,9 @@
 </main>
 
 <!-- FILM MODAL -->
-<div class="film-modal" id="film-modal" aria-hidden="true">
+<div class="modal" id="film-modal" aria-hidden="true">
   <div class="film-modal-dialog" role="dialog" aria-modal="true" aria-label="Natural Experiences film">
-    <button type="button" class="film-modal-close" id="close-film-modal" aria-label="Close video">Close</button>
+    <button type="button" class="modal-close" id="close-film-modal" aria-label="Close video">Close</button>
     <iframe
       id="film-player"
       title="Natural Experiences film"
@@ -213,6 +176,45 @@
       allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
       allowfullscreen>
     </iframe>
+  </div>
+</div>
+
+<!-- TESTIMONIAL MODAL -->
+<div class="modal" id="testimonial-modal" aria-hidden="true">
+  <div class="form-modal-dialog" role="dialog" aria-modal="true" aria-label="Submit a testimonial">
+    <button type="button" class="modal-close" id="close-testimonial-modal" aria-label="Close form">Close</button>
+    <h2 class="form-modal-title" id="testimonial-modal-title">Submit a testimonial</h2>
+    <form id="testimonial-form" novalidate>
+      <!-- Honeypot — hidden from humans, bots fill it in -->
+      <input type="checkbox" name="botcheck" class="tf-botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <label class="tf-field">
+        <span class="tf-label">Testimonial</span>
+        <textarea name="testimonial" rows="4" maxlength="280" required placeholder="How was your experience?"></textarea>
+      </label>
+      <div class="tf-row">
+        <label class="tf-field">
+          <span class="tf-label">Name</span>
+          <input type="text" name="name" maxlength="80" required>
+        </label>
+        <label class="tf-field">
+          <span class="tf-label">Company / title <em>(optional)</em></span>
+          <input type="text" name="company" maxlength="80" autocomplete="organization">
+        </label>
+      </div>
+      <label class="tf-field">
+        <span class="tf-label">Email</span>
+        <input type="email" name="email" maxlength="120" required autocomplete="email">
+      </label>
+      <label class="tf-consent">
+        <input type="checkbox" name="newsletter" value="yes" checked>
+        <span>Keep me updated on Natural Experiences and its sister companies</span>
+      </label>
+      <div class="tf-actions">
+        <button class="btn" type="submit" id="testimonial-submit-btn">Submit</button>
+        <p class="tf-status" id="testimonial-form-status" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+    <p class="tf-success" id="testimonial-form-success" hidden>Thank you. Your testimonial has been received.</p>
   </div>
 </div>
 
@@ -349,22 +351,43 @@
   document.getElementById('testimonial-prev').addEventListener('click', () => { goToSlide(currentSlide - 1); startAutoSlide(); });
   document.getElementById('testimonial-next').addEventListener('click', () => { goToSlide(currentSlide + 1); startAutoSlide(); });
 
+  // Shared modal behaviour — backdrop click and Escape close any open modal
+  function openModal(modal) {
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('no-scroll');
+  }
+  function closeModal(modal) {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('no-scroll');
+    const iframe = modal.querySelector('iframe');
+    if (iframe) iframe.src = 'about:blank'; // stop video playback
+  }
+  document.querySelectorAll('.modal').forEach(modal => {
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(modal); });
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') document.querySelectorAll('.modal.open').forEach(m => closeModal(m));
+  });
+
   // Testimonial submission — Web3Forms (https://web3forms.com)
   // Replace with your own access key (public-safe; it only identifies the inbox).
   const WEB3FORMS_ACCESS_KEY = 'e88e3a95-0a4c-4a58-b0ec-c7e0eefb56c1';
 
-  const tfToggle = document.getElementById('testimonial-form-toggle');
-  const tfPanel = document.getElementById('testimonial-form-panel');
+  const tfModal = document.getElementById('testimonial-modal');
   const tfForm = document.getElementById('testimonial-form');
   const tfStatus = document.getElementById('testimonial-form-status');
   const tfSuccess = document.getElementById('testimonial-form-success');
   const tfSubmitBtn = document.getElementById('testimonial-submit-btn');
 
-  tfToggle.addEventListener('click', () => {
-    const open = tfPanel.classList.toggle('open');
-    tfToggle.setAttribute('aria-expanded', open);
-    if (open) tfForm.querySelector('textarea').focus({ preventScroll: true });
-  });
+  function openTestimonialModal(e) {
+    e.preventDefault();
+    openModal(tfModal);
+    if (!tfForm.hidden) tfForm.querySelector('textarea').focus({ preventScroll: true });
+  }
+  document.getElementById('hero-testimonial-btn').addEventListener('click', openTestimonialModal);
+  document.getElementById('close-testimonial-modal').addEventListener('click', () => closeModal(tfModal));
 
   tfForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -381,9 +404,8 @@
       const json = await res.json();
       if (!res.ok || !json.success) throw new Error(json.message || res.statusText);
       tfStatus.textContent = '';
-      tfPanel.classList.remove('open');          // collapse the form
-      tfToggle.setAttribute('aria-expanded', 'false');
-      tfToggle.hidden = true;                    // replace button with thank-you
+      tfForm.hidden = true;                      // swap everything for the thank-you note
+      document.getElementById('testimonial-modal-title').hidden = true;
       tfSuccess.hidden = false;
     } catch (err) {
       console.error('Testimonial submission failed:', err);
@@ -420,25 +442,12 @@
   const filmPlayer = document.getElementById('film-player');
   const filmSrc = 'https://player.vimeo.com/video/1145625119?h=a353f29f53';
 
-  function openFilmModal(e) {
+  document.getElementById('open-film-modal').addEventListener('click', (e) => {
     e.preventDefault();
-    filmModal.classList.add('open');
-    filmModal.setAttribute('aria-hidden', 'false');
-    document.body.classList.add('no-scroll');
     filmPlayer.src = filmSrc;
-  }
-
-  function closeFilmModal() {
-    filmModal.classList.remove('open');
-    filmModal.setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('no-scroll');
-    filmPlayer.src = 'about:blank';
-  }
-
-  document.getElementById('open-film-modal').addEventListener('click', openFilmModal);
-  document.getElementById('close-film-modal').addEventListener('click', closeFilmModal);
-  filmModal.addEventListener('click', e => { if (e.target === filmModal) closeFilmModal(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && filmModal.classList.contains('open')) closeFilmModal(); });
+    openModal(filmModal);
+  });
+  document.getElementById('close-film-modal').addEventListener('click', () => closeModal(filmModal));
 </script>
 
 <script data-goatcounter="https://naturalexperiences.goatcounter.com/count"
