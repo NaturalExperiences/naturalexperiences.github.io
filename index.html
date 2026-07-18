@@ -382,12 +382,15 @@
   const tfSubmitBtn = document.getElementById('testimonial-submit-btn');
 
   function openTestimonialModal(e) {
-    e.preventDefault();
+    if (e) e.preventDefault();
     openModal(tfModal);
     if (!tfForm.hidden) tfForm.querySelector('textarea').focus({ preventScroll: true });
   }
   document.getElementById('hero-testimonial-btn').addEventListener('click', openTestimonialModal);
   document.getElementById('close-testimonial-modal').addEventListener('click', () => closeModal(tfModal));
+
+  // Deep link: /#review opens the testimonial form (used by the QR poster)
+  if (location.hash === '#review') openTestimonialModal();
 
   tfForm.addEventListener('submit', async (e) => {
     e.preventDefault();
