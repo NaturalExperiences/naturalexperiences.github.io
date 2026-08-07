@@ -436,14 +436,19 @@
   .faq-item.open .faq-icon { transform: rotate(45deg); color: var(--green-accent); }
 
   /* Grid-row trick: animates to the exact content height, so answers never clip
-     no matter how far the text wraps on narrow screens. */
+     no matter how far the text wraps on narrow screens.
+     Clipping lives on .faq-body (which has no padding) — overflow clips to the
+     padding box, so putting it on the padded inner would leak the first line. */
   .faq-body {
     display: grid;
     grid-template-rows: 0fr;
+    overflow: hidden;
     transition: grid-template-rows 0.45s cubic-bezier(0.16,1,0.3,1);
   }
   .faq-item.open .faq-body { grid-template-rows: 1fr; }
-  .faq-body > .faq-body-inner { min-height: 0; overflow: hidden; }
+  /* min-height:0 lets the 0fr track actually reach zero (auto minimum would
+     otherwise floor it at the content height). */
+  .faq-body > .faq-body-inner { min-height: 0; }
   .faq-body-inner {
     padding: 10px 28px 32px 28px;
     display: flex; flex-direction: column; gap: 14px;
