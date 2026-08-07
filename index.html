@@ -276,8 +276,10 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-body">
-            <div class="faq-body-inner">
-              ${paragraphs.map(p => `<p>${p}</p>`).join('')}
+            <div class="faq-body-clip">
+              <div class="faq-body-inner">
+                ${paragraphs.map(p => `<p>${p}</p>`).join('')}
+              </div>
             </div>
           </div>`;
         container.appendChild(el);

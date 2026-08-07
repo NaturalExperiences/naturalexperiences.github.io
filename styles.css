@@ -435,20 +435,21 @@
   .faq-icon { font-size: 16px; color: var(--text-dim); transition: transform 0.3s, color 0.2s; font-weight: 300; text-align: right; }
   .faq-item.open .faq-icon { transform: rotate(45deg); color: var(--green-accent); }
 
-  /* Grid-row trick: animates to the exact content height, so answers never clip
-     no matter how far the text wraps on narrow screens.
-     Clipping lives on .faq-body (which has no padding) — overflow clips to the
-     padding box, so putting it on the padded inner would leak the first line. */
+  /* Grid-row trick: the row animates between 0fr and 1fr, so an open answer is
+     sized to its real content height and never clips, however far the text
+     wraps on narrow screens. Replaces a fixed max-height, which cut off long
+     answers on mobile.
+     .faq-body-clip exists solely to be the grid item: with border-box sizing a
+     box can't shrink below its own padding, so a padded grid item would keep a
+     ~42px sliver of the answer visible while collapsed. Padding stays on
+     .faq-body-inner, one level further in, where it can be clipped away. */
   .faq-body {
     display: grid;
     grid-template-rows: 0fr;
-    overflow: hidden;
     transition: grid-template-rows 0.45s cubic-bezier(0.16,1,0.3,1);
   }
   .faq-item.open .faq-body { grid-template-rows: 1fr; }
-  /* min-height:0 lets the 0fr track actually reach zero (auto minimum would
-     otherwise floor it at the content height). */
-  .faq-body > .faq-body-inner { min-height: 0; }
+  .faq-body-clip { min-height: 0; overflow: hidden; }
   .faq-body-inner {
     padding: 10px 28px 32px 28px;
     display: flex; flex-direction: column; gap: 14px;
